@@ -3158,20 +3158,20 @@ static int hts_main_internal(int argc, char **argv, httrackp * opt) {
 
     /* Enforce limits to avoid bandwidth abuse. The bypass_limits should only be used by administrators and experts. */
     if (!opt->bypass_limits) {
-      if (opt->maxsoc <= 0 || opt->maxsoc > 8) {
-        opt->maxsoc = 8;
+      if (opt->maxsoc <= 0 || opt->maxsoc > 16) {
+        opt->maxsoc = 16;
         hts_log_print(opt, LOG_WARNING,
                       "* security warning: maximum number of simultaneous connections limited to %d to avoid server overload",
                       (int) opt->maxsoc);
       }
-      if (opt->maxrate <= 0 || opt->maxrate > 250000) {
-        opt->maxrate = 250000;
+      if (opt->maxrate <= 0 || opt->maxrate > 5*1024*1024) {
+        opt->maxrate = 5*1024*1024;
         hts_log_print(opt, LOG_WARNING,
                       "* security warning: maximum bandwidth limited to %d to avoid server overload",
                       (int) opt->maxrate);
       }
-      if (opt->maxconn <= 0 || opt->maxconn > 5.0) {
-        opt->maxconn = 5.0;
+      if (opt->maxconn <= 0 || opt->maxconn > 20.0) {
+        opt->maxconn = 20.0;
         hts_log_print(opt, LOG_WARNING,
                       "* security warning: maximum number of connections per second limited to %f to avoid server overload",
                       (float) opt->maxconn);
